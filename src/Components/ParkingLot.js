@@ -5,7 +5,7 @@ import React from 'react';
 const ParkingLot = ({ lot, onPark }) => {
   // Handle parking or unparking by calling the onPark prop
   const handleParking = () => {
-    let vehicle = lot?.vehicle;
+    let vehicle = lot.vehicle;
     if (vehicle) {
       // Unpark
       onPark(lot.id, null);
