@@ -1,17 +1,23 @@
-// ParkingFloor.js
-import React from 'react';
+import React, { useState } from 'react';
 import ParkingLot from './ParkingLot';
 
-// A functional component that represents a single floor of the parking system
-const ParkingFloor = ({ floor, onPark }) => {
-  // Render a grid of ParkingLot components
-  let lots = floor.lots.map((lot) => (
-    <ParkingLot key={lot.id} lot={lot} onPark={onPark} />
+const ParkingFloor = (props) => {
+  const [lots, setLots] = useState(props.floor.lots);
+
+  const handleParking = (lotId, vehicle) => {
+    let newLots = [...lots];
+    newLots[lotId].vehicle = vehicle;
+    setLots(newLots);
+    props.onPark(props.floor.number, lotId, vehicle);
+  };
+
+  let lotsList = lots.map((lot) => (
+    <ParkingLot key={lot.id} lot={lot} onPark={handleParking} />
   ));
   return (
     <div>
-      <h3>Floor {floor.number}</h3>
-      <div className="grid">{lots}</div>
+      <h3>Floor {props.floor.number}</h3>
+      <div className="grid">{lotsList}</div>
     </div>
   );
 };

@@ -1,28 +1,29 @@
-// ParkingLot.js
-import React from 'react';
+import React, { useState } from 'react';
 
-// A functional component that represents a single parking lot
-const ParkingLot = ({ lot, onPark }) => {
-  // Handle parking or unparking by calling the onPark prop
+const ParkingLot = (props) => {
+  const [vehicle, setVehicle] = useState(props.lot.vehicle); // 'car', 'bike', or null
+  // console.log(vehicle);
   const handleParking = () => {
-    let vehicle = lot.vehicle;
-    if (vehicle) {
+    let parkedVehicle = vehicle;
+
+    if (parkedVehicle) {
       // Unpark
-      onPark(lot.id, null);
+      setVehicle(null);
+      props.onPark(props.lot.id, null);
     } else {
       // Park
-      vehicle = prompt('Enter vehicle type (car or bike)');
-      if (vehicle === 'car' || vehicle === 'bike') {
-        onPark(lot.id, vehicle);
+      parkedVehicle = prompt('Enter vehicle type (car or bike)');
+      if (parkedVehicle === 'car' || parkedVehicle === 'bike') {
+        setVehicle(parkedVehicle);
+        props.onPark(props.lot.id, parkedVehicle);
       } else {
         alert('Invalid vehicle type');
       }
     }
   };
 
-  // Render a button that shows the vehicle type or an empty slot
-  let buttonText = lot.vehicle ? lot.vehicle.toUpperCase() : 'EMPTY';
-  let buttonColor = lot.vehicle ? (lot.vehicle === 'car' ? 'red' : 'green') : 'gray';
+  let buttonText = vehicle ? vehicle.toUpperCase() : 'EMPTY';
+  let buttonColor = vehicle ? (vehicle === 'car' ? 'red' : 'green') : 'gray';
   return (
     <button style={{ backgroundColor: buttonColor }} onClick={handleParking}>
       {buttonText}
