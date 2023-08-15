@@ -48,7 +48,7 @@ const ParkingSystem = ({ numFloors, numLots }) => {
       // Unpark
       // Calculate the charges based on the vehicle type and duration
       let endTime = Date.now();
-      let duration = (endTime - lot?.startTime) / 1000; // Duration in seconds
+      let duration = (endTime - lot.startTime) / 1000; // Duration in seconds
       let rate = vehicle === 'car' ? 10 : 5; // Rate per second in rupees
       let charges = rate * duration;
       // Update the state
